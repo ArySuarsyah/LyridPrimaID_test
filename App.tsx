@@ -1,25 +1,24 @@
+// import {View, Text} from 'react-native';
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {NavigationContainer} from '@react-navigation/native';
-// import {
-//   createDrawerNavigator,
-//   DrawerContentScrollView,
-//   DrawerItemList,
-//   DrawerItem,
-// } from '@react-navigation/drawer';
+import Main from './src/screens/Main';
+import {PaperProvider} from 'react-native-paper';
+import {persistor, store} from './src/redux/store';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/es/integration/react';
 
-const AuthStack = createNativeStackNavigator();
+// import PushNotification from 'react-native-push-notification';
+// import SplashScreen from 'react-native-splash-screen';
 
-import Login from './src/screens/auth/Login';
-import Register from './src/screens/auth/Register';
-
-export default function App() {
+const App = () => {
   return (
-    <NavigationContainer>
-      <AuthStack.Navigator screenOptions={{headerShown: false}}>
-        <AuthStack.Screen name="Login" component={Login} />
-        <AuthStack.Screen name="Register" component={Register} />
-      </AuthStack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <PaperProvider>
+        <PersistGate persistor={persistor}>
+          <Main />
+        </PersistGate>
+      </PaperProvider>
+    </Provider>
   );
-}
+};
+
+export default App;
