@@ -1,13 +1,12 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react-native/no-inline-styles */
 import {View, Text, Image} from 'react-native';
-import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import Entypo from 'react-native-vector-icons/dist/Entypo';
 import React, {useCallback} from 'react';
 import {useSelector} from 'react-redux';
 import http from '../../helper/http';
-import {TouchableRipple, TextInput} from 'react-native-paper';
+import {TouchableRipple} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {profileData} from '../../redux/reducers/profile';
@@ -20,7 +19,6 @@ const Profile = () => {
   const usersList = useSelector(state => state.users.listUsers);
   const navigation = useNavigation();
   const userData = useSelector(state => state.auth.dataUser);
-  const resourceList = useSelector(state => state.resource.data);
   const [page, setPage] = React.useState(1);
   const [totalPages, setTotalPages] = React.useState(0);
 
