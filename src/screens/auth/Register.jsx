@@ -38,8 +38,6 @@ export default function Register() {
   const token = useSelector(state => state.auth.token);
   const message = useSelector(state => state.auth.registerMessage);
 
-  console.log(token);
-  console.log(message);
   const [showPassword, setShowPassword] = useState(false);
   const [visible, setVisible] = React.useState(false);
 

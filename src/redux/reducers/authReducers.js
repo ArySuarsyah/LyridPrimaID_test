@@ -2,7 +2,7 @@ const {createSlice} = require('@reduxjs/toolkit');
 import {asyncLogin, asyncRegister} from '../actions/authActions';
 
 const initialState = {
-  token: '',
+  dataUser: {},
   loginMessage: '',
   registerMessage: '',
 };
@@ -12,7 +12,7 @@ const auth = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      state.token = action.payload;
+      state.data = action.payload;
     },
     logout: () => {
       return initialState;
@@ -27,7 +27,7 @@ const auth = createSlice({
       state.loginMessage = action.payload;
     });
     builder.addCase(asyncLogin.fulfilled, (state, action) => {
-      state.token = action.payload;
+      state.dataUser = action.payload;
     });
     builder.addCase(asyncLogin.rejected, (state, action) => {
       state.loginMessage = action.payload;
@@ -36,7 +36,7 @@ const auth = createSlice({
       state.registerMessage = action.payload;
     });
     builder.addCase(asyncRegister.fulfilled, (state, action) => {
-      state.token = action.payload;
+      state.dataUser = action.payload;
     });
     builder.addCase(asyncRegister.rejected, (state, action) => {
       state.registerMessage = action.payload;

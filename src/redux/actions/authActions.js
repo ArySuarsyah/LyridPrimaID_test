@@ -14,9 +14,8 @@ export const asyncLogin = createAsyncThunk(
           'Content-Type': 'application/json',
         },
       });
-      return data.token;
+      return data;
     } catch (error) {
-      console.log('error:', error.response.data.error);
       if (error.response.data.error) {
         return rejectWithValue(error.response.data.error);
       }
@@ -38,9 +37,8 @@ export const asyncRegister = createAsyncThunk(
           'Content-Type': 'application/json',
         },
       });
-      return data.token;
+      return data;
     } catch (error) {
-      console.log('error:', error.response.data.error);
       if (error.response.data.error) {
         return rejectWithValue(error.response.data.error);
       }

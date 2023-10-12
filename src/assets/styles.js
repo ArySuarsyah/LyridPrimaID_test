@@ -129,6 +129,16 @@ const styles = StyleSheet.create({
   colorWhite: {
     color: 'white',
   },
+  userImage: {
+    padding: 5,
+    borderRadius: 100,
+    overflow: 'hidden',
+    width: 100,
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 5,
+  },
 });
 
 export default styles;

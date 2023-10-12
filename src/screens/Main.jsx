@@ -6,13 +6,17 @@ import {useSelector} from 'react-redux';
 const AuthStack = createNativeStackNavigator();
 import Login from './auth/Login';
 import Register from './auth/Register';
+import Index from './Index';
+import Profile from './user/Index';
 
 export default function Main() {
-  const token = useSelector(state => state.auth.token);
-  console.log('userTioken', token);
+  // const token = useSelector(state => state.auth.data.token);
+
   return (
     <NavigationContainer>
       <AuthStack.Navigator screenOptions={{headerShown: false}}>
+        <AuthStack.Screen name="Profile" component={Profile} />
+        <AuthStack.Screen name="Home" component={Index} />
         <AuthStack.Screen name="Register" component={Register} />
         <AuthStack.Screen name="Login" component={Login} />
       </AuthStack.Navigator>
