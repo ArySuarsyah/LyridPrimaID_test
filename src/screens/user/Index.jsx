@@ -2,6 +2,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, Text, Image} from 'react-native';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
+import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Entypo from 'react-native-vector-icons/dist/Entypo';
 import React, {useCallback} from 'react';
 import {useSelector} from 'react-redux';
@@ -10,7 +11,7 @@ import {TouchableRipple} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {profileData} from '../../redux/reducers/profile';
-import {getUsers} from '../../redux/reducers/userReducers';
+import {getUsers, editUser} from '../../redux/reducers/userReducers';
 import styles from '../../assets/styles';
 
 const Profile = () => {
@@ -53,6 +54,11 @@ const Profile = () => {
     getUser();
     getAllUsers(page);
   }, [getUser, getAllUsers, page]);
+
+  const handleEdit = id => {
+    dispatch(editUser(id));
+    navigation.navigate('EditProfile');
+  };
 
   return (
     <View style={{gap: 50}}>
@@ -117,6 +123,7 @@ const Profile = () => {
                   gap: 10,
                   padding: 10,
                   paddingVertical: 10,
+                  justifyContent: 'space-between',
                 }}>
                 <Image
                   source={{
@@ -132,6 +139,25 @@ const Profile = () => {
                     <Text>{item.last_name}</Text>
                   </View>
                   <Text>{item.email}</Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    gap: 15,
+                    alignItems: 'center',
+                    alignSelf: 'end',
+                  }}>
+                  <TouchableRipple onPress={() => handleEdit(item.id)}>
+                    <View style={{padding: 5}}>
+                      <AntDesign name="edit" size={20} />
+                    </View>
+                  </TouchableRipple>
+                  <TouchableRipple onPress={() => console.log('okedeh')}>
+                    <View style={{padding: 5}}>
+                      <AntDesign name="delete" size={18} />
+                    </View>
+                  </TouchableRipple>
                 </View>
               </View>
             );
