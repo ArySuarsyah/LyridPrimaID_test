@@ -46,7 +46,10 @@ export default function CreateUser() {
         setSuccess(!success);
       }
     } catch (error) {
-      setErrorMessage(error.response.data.error);
+      if (error.response.data.error) {
+        setErrorMessage(error.response.data.error);
+      }
+      setErrorMessage(error.message);
     }
   };
 

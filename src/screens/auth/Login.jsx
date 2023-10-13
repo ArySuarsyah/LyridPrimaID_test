@@ -8,14 +8,11 @@ import {
   StyleSheet,
   ImageBackground,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import BackgroundImage from '../../assets/image/9307421.png';
 import {Link} from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import Octicons from 'react-native-vector-icons/Octicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import styles from '../../assets/styles';
 import {asyncLogin} from '../../redux/actions/authActions';
@@ -24,7 +21,6 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {Portal, Modal, Button, TouchableRipple} from 'react-native-paper';
 import {deleteMessage} from '../../redux/reducers/authReducers';
-// import {deleteMessage} from '../../redux/reducers/authReducers';
 
 const validationSchema = Yup.object({
   email: Yup.string().email('Invalid email address').required('Required'),

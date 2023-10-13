@@ -4,15 +4,17 @@ import {View, Text, Image} from 'react-native';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Entypo from 'react-native-vector-icons/dist/Entypo';
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import {useSelector} from 'react-redux';
 import http from '../../helper/http';
-import {TouchableRipple} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {profileData} from '../../redux/reducers/profile';
 import {getUsers, editUser} from '../../redux/reducers/userReducers';
 import styles from '../../assets/styles';
+import {Portal, Modal, Button, TouchableRipple} from 'react-native-paper';
+import moment from 'moment';
+import {deleteMessage} from '../../redux/reducers/authReducers';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -22,6 +24,22 @@ const Profile = () => {
   const userData = useSelector(state => state.auth.dataUser);
   const [page, setPage] = React.useState(1);
   const [totalPages, setTotalPages] = React.useState(0);
+  const [visible, setVisible] = React.useState(false);
+  const [hide, setHide] = React.useState(false);
+  const [itemDelete, setItemDelete] = React.useState({});
+  const [message, setMessage] = React.useState();
+  const [errorMessage, setErrorMessage] = React.useState('');
+  const [success, setSuccess] = useState(false);
+
+  const showModal = item => {
+    setVisible(true);
+    setItemDelete(item);
+  };
+
+  const hideModal = () => setVisible(false);
+
+  const alert = () => setHide(true);
+  const hideAlert = () => setHide(false);
 
   const getUser = React.useCallback(async () => {
     const {data} = await http().get(`/api/users/${userData.id}`);
@@ -60,8 +78,89 @@ const Profile = () => {
     navigation.navigate('EditProfile');
   };
 
+  React.useEffect(() => {
+    if (success) {
+      alert();
+    }
+  }, [success]);
+
+  const handleDelete = async () => {
+    try {
+      const data = await http().delete(`/api/users/${itemDelete.id}`);
+      setSuccess(!success);
+      setMessage(data.headers.date);
+      hideModal();
+    } catch (error) {
+      if (error.response.data.error) {
+        setErrorMessage(error.response.data.error);
+      }
+      setErrorMessage(error.message);
+    }
+  };
+
+  const handleOkey = () => {
+    dispatch(deleteMessage());
+    hideAlert();
+  };
+
+  console.log(message);
+
   return (
     <View style={{gap: 50}}>
+      <Portal>
+        <Modal
+          visible={hide}
+          onDismiss={hideAlert}
+          contentContainerStyle={styles.containerStyle}
+          style={styles.modalStyle}>
+          {errorMessage && (
+            <View style={styles.iconFailed}>
+              <AntDesign name="close" color="white" size={30} />
+            </View>
+          )}
+          {message && (
+            <View style={styles.iconSuccess}>
+              <AntDesign name="check" color="white" size={30} />
+            </View>
+          )}
+          <View style={{justifyContent: 'center'}}>
+            {errorMessage && <Text>Delete Failed</Text>}
+            {message && <Text>Delete Success</Text>}
+            {errorMessage && (
+              <Text style={styles.textCenter}>{errorMessage}</Text>
+            )}
+            {message && (
+              <View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text>Delete :</Text>
+                  <Text style={styles.textCenter}>{message}</Text>
+                </View>
+              </View>
+            )}
+          </View>
+          <TouchableRipple style={styles.buttonHeight} onPress={handleOkey}>
+            <Button style={styles.button}>
+              <Text style={styles.colorWhite}>Ok</Text>
+            </Button>
+          </TouchableRipple>
+        </Modal>
+      </Portal>
+      <Portal>
+        <Modal
+          visible={visible}
+          onDismiss={hideModal}
+          contentContainerStyle={styles.containerStyle}
+          style={styles.modalStyle}>
+          <View>
+            <Text>{`Confirm Delete ${itemDelete.first_name} ${itemDelete.first_name}`}</Text>
+          </View>
+          <TouchableRipple style={styles.buttonHeight} onPress={handleDelete}>
+            <Button style={styles.button}>
+              <Text style={styles.colorWhite}>Ok</Text>
+            </Button>
+          </TouchableRipple>
+        </Modal>
+      </Portal>
       <View style={{gap: 20}}>
         <View
           style={{
@@ -155,7 +254,7 @@ const Profile = () => {
                       <AntDesign name="edit" size={20} />
                     </View>
                   </TouchableRipple>
-                  <TouchableRipple onPress={() => console.log('okedeh')}>
+                  <TouchableRipple onPress={() => showModal(item)}>
                     <View style={{padding: 5}}>
                       <AntDesign name="delete" size={18} />
                     </View>
