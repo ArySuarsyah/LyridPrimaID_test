@@ -9,7 +9,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import BackgroundImage from '../../assets/image/9307421.png';
-import {Link} from '@react-navigation/native';
+import {Link, useNavigation} from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import Octicons from 'react-native-vector-icons/Octicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -28,6 +28,7 @@ const validationSchema = Yup.object({
 });
 
 export default function Login() {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const errorMessage = useSelector(state => state.auth.loginMessage);
   // const bg = {uri: BackgroundImage};
@@ -43,6 +44,7 @@ export default function Login() {
 
   const doLogin = values => {
     dispatch(asyncLogin(values));
+    navigation.navigate('Index');
   };
 
   useEffect(() => {

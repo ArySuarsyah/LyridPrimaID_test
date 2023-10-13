@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import BackgroundImage from '../../assets/image/9307421.png';
-import {Link} from '@react-navigation/native';
+import {Link, useNavigation} from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import Octicons from 'react-native-vector-icons/Octicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -28,12 +28,12 @@ import {asyncRegister} from '../../redux/actions/authActions';
 import {deleteMessage} from '../../redux/reducers/authReducers';
 
 const validationSchema = Yup.object({
-  username: Yup.string().required('Invalid username address'),
   email: Yup.string().email('Invalid email address').required('Required'),
   password: Yup.string().required('Password cannot be empty'),
 });
 
 export default function Register() {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const token = useSelector(state => state.auth.token);
   const message = useSelector(state => state.auth.registerMessage);
@@ -50,6 +50,7 @@ export default function Register() {
 
   const doRegister = values => {
     dispatch(asyncRegister(values));
+    navigation.navigate('Index');
   };
 
   useEffect(() => {
@@ -99,7 +100,6 @@ export default function Register() {
             <Formik
               style={styles.formikStyle}
               initialValues={{
-                username: '',
                 email: '',
                 password: '',
               }}
@@ -115,13 +115,6 @@ export default function Register() {
               }) => (
                 <View style={styles.formContainer}>
                   <View style={styles.inputParent}>
-                    <TextInput
-                      style={styles.input}
-                      placeholder="Username"
-                      onChangeText={handleChange('username')}
-                      onBlur={handleBlur('username')}
-                      value={values.username}
-                    />
                     <TextInput
                       onChangeText={handleChange('email')}
                       onBlur={handleBlur('email')}
