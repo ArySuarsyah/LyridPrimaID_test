@@ -12,7 +12,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {deleteMessage} from '../../redux/reducers/authReducers';
 import {useNavigation} from '@react-navigation/native';
 
-
 const validationSchema = Yup.object({
   name: Yup.string(),
   job: Yup.string(),
@@ -25,7 +24,6 @@ export default function CreateUser() {
   const [success, setSuccess] = React.useState(false);
   const [message, setMessage] = React.useState();
   const [errorMessage, setErrorMessage] = React.useState('');
-  
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
