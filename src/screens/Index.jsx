@@ -1,10 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text, Image, Dimensions} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {profileData} from '../redux/reducers/profile';
 import styles from '../assets/styles';
 import {resourceData} from '../redux/reducers/resourceReducers';
-import React, {useCallback, useState, useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import http from '../helper/http';
 import {TouchableRipple} from 'react-native-paper';
@@ -35,9 +35,6 @@ export default function Index() {
   useEffect(() => {
     getUser();
   }, [getUser]);
-
-  const windowWidth = Dimensions.get('window').width;
-  const windowHeight = Dimensions.get('window').height;
 
   return (
     <SafeAreaView style={styles.saveArea}>
