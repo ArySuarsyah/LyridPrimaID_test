@@ -13,7 +13,6 @@ import {profileData} from '../../redux/reducers/profile';
 import {getUsers, editUser} from '../../redux/reducers/userReducers';
 import styles from '../../assets/styles';
 import {Portal, Modal, Button, TouchableRipple} from 'react-native-paper';
-import moment from 'moment';
 import {deleteMessage} from '../../redux/reducers/authReducers';
 
 const Profile = () => {
@@ -102,8 +101,6 @@ const Profile = () => {
     dispatch(deleteMessage());
     hideAlert();
   };
-
-  console.log(message);
 
   return (
     <View style={{gap: 50}}>

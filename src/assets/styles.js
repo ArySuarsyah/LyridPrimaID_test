@@ -139,6 +139,57 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     elevation: 5,
   },
+  containerProfileDrawwer: {
+    paddingVertical: 50,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    gap: 10,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+
+  fotoDrawwer: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    borderWidth: 3,
+    borderColor: '#4c3f91',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 30,
+  },
+  fotoIcon: {
+    width: 55,
+    height: 55,
+    backgroundColor: 'gray',
+    borderRadius: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+  IMGProfiles: {
+    objectFit: 'cover',
+    width: 60,
+    height: 60,
+  },
+  textFullname: {
+    fontSize: 16,
+    fontFamily: 'Poppins-SemiBold',
+    textTransform: 'capitalize',
+    color: 'black',
+    width: 240,
+  },
+  textProfession: {
+    fontSize: 12,
+    fontFamily: 'Poppins-SemiBold',
+    textTransform: 'capitalize',
+    color: 'grey',
+  },
+  textTitleWhite: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
 });
 
 export default styles;
