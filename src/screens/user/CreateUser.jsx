@@ -11,7 +11,7 @@ import styles from '../../assets/styles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {deleteMessage} from '../../redux/reducers/authReducers';
 import {useNavigation} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
+
 
 const validationSchema = Yup.object({
   name: Yup.string(),
@@ -25,7 +25,7 @@ export default function CreateUser() {
   const [success, setSuccess] = React.useState(false);
   const [message, setMessage] = React.useState();
   const [errorMessage, setErrorMessage] = React.useState('');
-  const userID = useSelector(state => state.users.userId);
+  
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
@@ -36,7 +36,7 @@ export default function CreateUser() {
         name: values.name,
         job: values.job,
       };
-      const {data} = await http().post(`api/users/${userID}`, inputData, {
+      const {data} = await http().post('api/users', inputData, {
         Headers: {
           'Content-Type': 'application/json',
         },
@@ -89,7 +89,7 @@ export default function CreateUser() {
             )}
             <View style={{justifyContent: 'center'}}>
               {errorMessage && <Text>Update Failed</Text>}
-              {success && <Text>Update Success</Text>}
+              {success && <Text>Create Success</Text>}
               {errorMessage && (
                 <Text style={styles.textCenter}>{errorMessage}</Text>
               )}

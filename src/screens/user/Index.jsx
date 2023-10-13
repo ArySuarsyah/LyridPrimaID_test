@@ -110,7 +110,9 @@ const Profile = () => {
             alignItems: 'center',
           }}>
           <Text style={{fontSize: 20}}>User List</Text>
-          <Ionicons name="add-circle" size={30} />
+          <TouchableRipple onPress={() => navigation.navigate('CreateUser')}>
+            <Ionicons name="add-circle" size={30} />
+          </TouchableRipple>
         </View>
         <View>
           {usersList.map(item => {
